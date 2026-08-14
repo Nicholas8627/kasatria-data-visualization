@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="referrer"
+        content="no-referrer-when-downgrade"
+    >
+
+    <title>3D Data Visualization</title>
+
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        href="./assets/favicon.ico"
+    >
+
+    <!-- Styles -->
+    <link
+        rel="stylesheet"
+        href="./css/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/login.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/visualization.css"
+    >
+
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+    </script>
+
+
+    <!-- Papa Parse -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/papaparse@5.5.3/papaparse.min.js">
+    </script>
+
+
+    <!-- Google Identity Services -->
+    <script
+        src="https://accounts.google.com/gsi/client"
+        async
+        defer>
+    </script>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         LOGIN SCREEN
+    ====================================== -->
+
+    <main
+        id="login-screen"
+        class="login-screen"
+    >
+
+        <section class="login-box">
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p>
+                Sign in to continue to the
+                3D Data Visualization
+            </p>
+
+
+            <!-- Google Identity configuration -->
+
+            <div
+                id="g_id_onload"
+
+                data-client_id="761390105894-3jdklcrgf192sccqk77vtmci68964t6o.apps.googleusercontent.com"
+
+                data-callback="handleCredentialResponse"
+
+                data-auto_prompt="false">
+            </div>
+
+
+            <!-- Google Sign-In button -->
+
+            <div class="google-button">
+
+                <div
+                    class="g_id_signin"
+
+                    data-type="standard"
+
+                    data-size="large"
+
+                    data-theme="outline"
+
+                    data-text="sign_in_with"
+
+                    data-shape="rectangular"
+
+                    data-logo_alignment="left">
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================
+         VISUALIZATION SCREEN
+    ====================================== -->
+
+    <main
+        id="visualization-screen"
+        class="hidden"
+    >
+
+
+        <!-- Three.js output -->
+
+        <div
+            id="three-container"
+            aria-label="Interactive 3D data visualization">
+        </div>
+
+
+
+        <!-- Header -->
+
+        <header class="visualization-header">
+
+            <h1>
+                3D Data Visualization
+            </h1>
+
+            <p id="record-count">
+                Google Sheet Data
+            </p>
+
+        </header>
+
+
+
+        <!-- Layout controls -->
+
+        <nav
+            class="layout-controls"
+            aria-label="Visualization layouts"
+        >
+
+            <button
+                class="layout-button"
+                data-layout="table"
+                type="button">
+                TABLE
+            </button>
+
+
+            <button
+                class="layout-button"
+                data-layout="sphere"
+                type="button">
+                SPHERE
+            </button>
+
+
+            <button
+                class="layout-button"
+                data-layout="helix"
+                type="button">
+                HELIX
+            </button>
+
+
+            <button
+                class="layout-button"
+                data-layout="grid"
+                type="button">
+                GRID
+            </button>
+
+        </nav>
+
+
+
+        <!-- Net Worth Legend -->
+
+        <aside
+            class="net-worth-legend"
+            aria-label="Net worth colour legend"
+        >
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-color low">
+                </span>
+
+                <span>
+                    Net Worth &lt; $100K
+                </span>
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-color medium">
+                </span>
+
+                <span>
+                    $100K – $200K
+                </span>
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span
+                    class="legend-color high">
+                </span>
+
+                <span>
+                    Net Worth &gt; $200K
+                </span>
+
+            </div>
+
+        </aside>
+
+
+    </main>
+
+
+
+    <!-- =====================================
+         LOADING SCREEN
+    ====================================== -->
+
+    <div
+        id="loading-indicator"
+        class="hidden"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="loading-spinner"></div>
+
+        <p>
+            Loading Google Sheet data...
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================
+         APPLICATION ENTRY POINT
+    ====================================== -->
+
+    <script
+        type="module"
+        src="./js/main.js">
+    </script>
+
+
+</body>
+
+</html>
