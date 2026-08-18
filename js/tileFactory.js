@@ -1,37 +1,48 @@
 import {
     CSS3DObject
-} from "three/addons/renderers/CSS3DRenderer.js";
+} from
+"three/addons/renderers/CSS3DRenderer.js";
 
 
 /**
- * Creates one CSS3D tile from
- * a person's data.
+ * Creates one CSS3D tile
+ * from a person's data.
  *
  * @param {Object} person
  * @returns {CSS3DObject}
  */
-export function createPersonTile(person) {
+export function createPersonTile(
+    person
+) {
 
     const element =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
+
 
     element.className =
         `person-tile ${getNetWorthClass(person.netWorth)}`;
 
 
     const metaRow =
-        createMetaRow(person);
+        createMetaRow(
+            person
+        );
 
 
     const photoWrapper =
-        createPhoto(person);
+        createPhoto(
+            person
+        );
 
 
     const name =
         createTextElement(
             "div",
             "tile-name",
-            person.name || "Unknown"
+            person.name ||
+            "Unknown"
         );
 
 
@@ -39,7 +50,8 @@ export function createPersonTile(person) {
         createTextElement(
             "div",
             "tile-interest",
-            person.interest || "-"
+            person.interest ||
+            "-"
         );
 
 
@@ -47,7 +59,8 @@ export function createPersonTile(person) {
         createTextElement(
             "div",
             "tile-worth",
-            person.netWorth || "$0"
+            person.netWorth ||
+            "$0"
         );
 
 
@@ -60,30 +73,36 @@ export function createPersonTile(person) {
     );
 
 
-    return new CSS3DObject(element);
+    return new CSS3DObject(
+        element
+    );
 }
 
 
-/**
- * Creates the top row containing
- * country and age.
- *
- * @param {Object} person
- * @returns {HTMLDivElement}
- */
-function createMetaRow(person) {
+/* ========================================
+   META ROW
+======================================== */
+
+function createMetaRow(
+    person
+) {
 
     const row =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    row.className = "tile-meta";
+
+    row.className =
+        "tile-meta";
 
 
     const country =
         createTextElement(
             "span",
             "tile-country",
-            person.country || "-"
+            person.country ||
+            "-"
         );
 
 
@@ -91,6 +110,7 @@ function createMetaRow(person) {
         createTextElement(
             "span",
             "tile-age",
+
             person.age
                 ? `Age ${person.age}`
                 : "Age -"
@@ -107,30 +127,37 @@ function createMetaRow(person) {
 }
 
 
-/**
- * Creates the photo section.
- *
- * @param {Object} person
- * @returns {HTMLDivElement}
- */
-function createPhoto(person) {
+/* ========================================
+   PHOTO
+======================================== */
+
+function createPhoto(
+    person
+) {
 
     const wrapper =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     wrapper.className =
         "tile-photo-wrapper";
 
 
     const image =
-        document.createElement("img");
+        document.createElement(
+            "img"
+        );
+
 
     image.className =
         "tile-photo";
 
 
     image.src =
-        person.photo || "";
+        person.photo ||
+        "";
 
 
     image.alt =
@@ -150,42 +177,48 @@ function createPhoto(person) {
     image.addEventListener(
         "error",
         () => {
+
             handleBrokenImage(
                 image,
                 person.name
             );
+
         }
     );
 
 
-    wrapper.appendChild(image);
+    wrapper.appendChild(
+        image
+    );
 
 
     return wrapper;
 }
 
 
-/**
- * Replaces a broken image with
- * a simple text placeholder.
- *
- * @param {HTMLImageElement} image
- * @param {string} name
- */
+/* ========================================
+   BROKEN IMAGE PLACEHOLDER
+======================================== */
+
 function handleBrokenImage(
     image,
     name
 ) {
 
     const placeholder =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     placeholder.className =
         "tile-photo tile-photo-placeholder";
 
 
     placeholder.textContent =
-        getInitials(name);
+        getInitials(
+            name
+        );
 
 
     image.replaceWith(
@@ -194,15 +227,14 @@ function handleBrokenImage(
 }
 
 
-/**
- * Gets initials for the image placeholder.
- *
- * @param {string} name
- * @returns {string}
- */
+/* ========================================
+   INITIALS
+======================================== */
+
 function getInitials(name) {
 
     if (!name) {
+
         return "?";
     }
 
@@ -213,21 +245,18 @@ function getInitials(name) {
         .slice(0, 2)
         .map(
             word =>
-                word.charAt(0)
+                word
+                    .charAt(0)
                     .toUpperCase()
         )
         .join("");
 }
 
 
-/**
- * Creates a simple text-based HTML element.
- *
- * @param {string} tagName
- * @param {string} className
- * @param {string} text
- * @returns {HTMLElement}
- */
+/* ========================================
+   GENERIC TEXT ELEMENT
+======================================== */
+
 function createTextElement(
     tagName,
     className,
@@ -252,25 +281,34 @@ function createTextElement(
 }
 
 
-/**
- * Determines the CSS class used
- * to color the tile based on Net Worth.
- *
- * @param {string} value
- * @returns {string}
- */
-function getNetWorthClass(value) {
+/* ========================================
+   NET WORTH COLOR
+======================================== */
+
+function getNetWorthClass(
+    value
+) {
 
     const amount =
-        parseNetWorth(value);
+        parseNetWorth(
+            value
+        );
 
 
-    if (amount > 200000) {
+    if (
+        amount >
+        200000
+    ) {
+
         return "net-worth-high";
     }
 
 
-    if (amount >= 100000) {
+    if (
+        amount >=
+        100000
+    ) {
+
         return "net-worth-medium";
     }
 
@@ -279,41 +317,48 @@ function getNetWorthClass(value) {
 }
 
 
-/**
- * Converts values such as:
- *
- * $85,000
- * $150K
- * 250000
- * $1.2M
- *
- * into numeric values.
- *
- * @param {string} value
- * @returns {number}
- */
-export function parseNetWorth(value) {
+/* ========================================
+   NET WORTH PARSER
+======================================== */
+
+export function parseNetWorth(
+    value
+) {
 
     if (!value) {
+
         return 0;
     }
 
 
     const text =
-        String(value)
+        String(
+            value
+        )
             .trim()
             .toUpperCase();
 
 
-    let multiplier = 1;
+    let multiplier =
+        1;
 
 
-    if (text.includes("M")) {
+    if (
+        text.includes(
+            "M"
+        )
+    ) {
 
         multiplier =
             1_000_000;
 
-    } else if (text.includes("K")) {
+    }
+
+    else if (
+        text.includes(
+            "K"
+        )
+    ) {
 
         multiplier =
             1_000;
@@ -330,11 +375,17 @@ export function parseNetWorth(value) {
 
 
     if (
-        Number.isNaN(number)
+        Number.isNaN(
+            number
+        )
     ) {
+
         return 0;
     }
 
 
-    return number * multiplier;
+    return (
+        number *
+        multiplier
+    );
 }

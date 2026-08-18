@@ -1,16 +1,26 @@
-import * as THREE from "three";
+import * as THREE
+from "three";
 
 
 /* ========================================
    LAYOUT SETTINGS
 ======================================== */
 
-const TABLE_COLUMNS = 20;
-const TABLE_ROWS = 10;
+const TABLE_COLUMNS =
+    20;
 
-const GRID_COLUMNS = 5;
-const GRID_ROWS = 4;
-const GRID_DEPTH = 10;
+const TABLE_ROWS =
+    10;
+
+
+const GRID_COLUMNS =
+    5;
+
+const GRID_ROWS =
+    4;
+
+const GRID_DEPTH =
+    10;
 
 
 /* ========================================
@@ -18,51 +28,67 @@ const GRID_DEPTH = 10;
    20 × 10
 ======================================== */
 
-/**
- * Creates a 20-column × 10-row table layout.
- *
- * @param {number} count
- * @returns {THREE.Object3D[]}
- */
-export function createTableTargets(count) {
+export function createTableTargets(
+    count
+) {
 
-    const targets = [];
-
-    const spacingX = 150;
-    const spacingY = 190;
+    const targets =
+        [];
 
 
-    for (let index = 0; index < count; index++) {
+    const spacingX =
+        150;
+
+    const spacingY =
+        190;
+
+
+    for (
+        let index = 0;
+        index < count;
+        index++
+    ) {
 
         const object =
             new THREE.Object3D();
 
 
         const column =
-            index % TABLE_COLUMNS;
+            index %
+            TABLE_COLUMNS;
 
 
         const row =
             Math.floor(
-                index / TABLE_COLUMNS
+                index /
+                TABLE_COLUMNS
             );
 
 
         object.position.x =
             (
                 column -
-                (TABLE_COLUMNS - 1) / 2
-            ) * spacingX;
+                (
+                    TABLE_COLUMNS -
+                    1
+                ) / 2
+            ) *
+            spacingX;
 
 
         object.position.y =
             (
-                (TABLE_ROWS - 1) / 2 -
+                (
+                    TABLE_ROWS -
+                    1
+                ) / 2 -
                 row
-            ) * spacingY;
+            ) *
+            spacingY;
 
 
-        object.position.z = 0;
+        object.position.z =
+            0;
 
 
         object.rotation.set(
@@ -72,7 +98,9 @@ export function createTableTargets(count) {
         );
 
 
-        targets.push(object);
+        targets.push(
+            object
+        );
     }
 
 
@@ -81,70 +109,74 @@ export function createTableTargets(count) {
 
 
 /* ========================================
-   SPHERE LAYOUT
+   SPHERE
 ======================================== */
 
-/**
- * Distributes all objects evenly
- * around the surface of a sphere.
- *
- * @param {number} count
- * @returns {THREE.Object3D[]}
- */
-export function createSphereTargets(count) {
+export function createSphereTargets(
+    count
+) {
 
-    const targets = [];
-
-    const radius = 850;
+    const targets =
+        [];
 
 
-    for (let index = 0; index < count; index++) {
+    const radius =
+        850;
+
+
+    for (
+        let index = 0;
+        index < count;
+        index++
+    ) {
 
         const object =
             new THREE.Object3D();
 
 
-        /*
-         * Fibonacci-style distribution
-         * gives a visually even sphere.
-         */
-
         const phi =
             Math.acos(
                 -1 +
-                (2 * index) /
+                (
+                    2 *
+                    index
+                ) /
                 count
             );
 
 
         const theta =
             Math.sqrt(
-                count * Math.PI
-            ) * phi;
+                count *
+                Math.PI
+            ) *
+            phi;
 
 
-        object.position.setFromSphericalCoords(
-            radius,
-            phi,
-            theta
-        );
+        object.position
+            .setFromSphericalCoords(
+                radius,
+                phi,
+                theta
+            );
 
-
-        /*
-         * Make each tile face away
-         * from the sphere centre.
-         */
 
         const direction =
             object.position
                 .clone()
-                .multiplyScalar(2);
+                .multiplyScalar(
+                    2
+                );
 
 
-        object.lookAt(direction);
+        object.lookAt(
+            direction
+        );
 
 
-        targets.push(object);
+        targets.push(
+            object
+        );
     }
 
 
@@ -153,67 +185,62 @@ export function createSphereTargets(count) {
 
 
 /* ========================================
-   DOUBLE HELIX LAYOUT
+   DOUBLE HELIX
 ======================================== */
 
-/**
- * Creates TWO intertwined helices.
- *
- * Assignment requirement:
- * Double Helix instead of the
- * Three.js example's single helix.
- *
- * @param {number} count
- * @returns {THREE.Object3D[]}
- */
-export function createHelixTargets(count) {
+export function createHelixTargets(
+    count
+) {
 
-    const targets = [];
-
-    const radius = 780;
-
-    const verticalSpacing = 19;
-
-    const angleStep = 0.32;
+    const targets =
+        [];
 
 
-    /*
-     * Half the people go to strand A,
-     * half go to strand B.
-     */
+    const radius =
+        780;
+
+
+    const verticalSpacing =
+        19;
+
+
+    const angleStep =
+        0.32;
+
 
     const strandLength =
-        Math.ceil(count / 2);
+        Math.ceil(
+            count /
+            2
+        );
 
 
-    for (let index = 0; index < count; index++) {
+    for (
+        let index = 0;
+        index < count;
+        index++
+    ) {
 
         const object =
             new THREE.Object3D();
 
 
-        /*
-         * Even index  = first strand
-         * Odd index   = second strand
-         */
-
         const strand =
-            index % 2;
+            index %
+            2;
 
 
         const positionInStrand =
-            Math.floor(index / 2);
+            Math.floor(
+                index /
+                2
+            );
 
 
         const angle =
             positionInStrand *
             angleStep;
 
-
-        /*
-         * Second strand is 180°
-         * opposite the first strand.
-         */
 
         const strandOffset =
             strand === 0
@@ -228,32 +255,37 @@ export function createHelixTargets(count) {
 
         object.position.x =
             radius *
-            Math.sin(finalAngle);
+            Math.sin(
+                finalAngle
+            );
 
 
         object.position.z =
             radius *
-            Math.cos(finalAngle);
+            Math.cos(
+                finalAngle
+            );
 
 
         object.position.y =
             (
                 positionInStrand -
-                strandLength / 2
+                strandLength /
+                2
             ) *
             verticalSpacing;
 
 
-        /*
-         * Rotate tile so it faces
-         * outward from the helix.
-         */
-
         const lookTarget =
             new THREE.Vector3(
-                object.position.x * 2,
+
+                object.position.x *
+                2,
+
                 object.position.y,
-                object.position.z * 2
+
+                object.position.z *
+                2
             );
 
 
@@ -262,7 +294,9 @@ export function createHelixTargets(count) {
         );
 
 
-        targets.push(object);
+        targets.push(
+            object
+        );
     }
 
 
@@ -271,51 +305,42 @@ export function createHelixTargets(count) {
 
 
 /* ========================================
-   GRID LAYOUT
+   GRID
    5 × 4 × 10
 ======================================== */
 
-/**
- * Creates the required:
- *
- * 5 columns ×
- * 4 rows ×
- * 10 depth layers
- *
- * Total = 200 positions.
- *
- * @param {number} count
- * @returns {THREE.Object3D[]}
- */
-export function createGridTargets(count) {
+export function createGridTargets(
+    count
+) {
 
-    const targets = [];
+    const targets =
+        [];
 
 
-    const spacingX = 260;
-    const spacingY = 220;
-    const spacingZ = 420;
+    const spacingX =
+        260;
+
+    const spacingY =
+        220;
+
+    const spacingZ =
+        420;
 
 
-    for (let index = 0; index < count; index++) {
+    for (
+        let index = 0;
+        index < count;
+        index++
+    ) {
 
         const object =
             new THREE.Object3D();
 
 
-        /*
-         * x changes every record.
-         */
-
         const x =
             index %
             GRID_COLUMNS;
 
-
-        /*
-         * y changes after every
-         * group of 5.
-         */
 
         const y =
             Math.floor(
@@ -324,11 +349,6 @@ export function createGridTargets(count) {
             ) %
             GRID_ROWS;
 
-
-        /*
-         * z changes after every
-         * 5 × 4 = 20 records.
-         */
 
         const z =
             Math.floor(
@@ -343,14 +363,20 @@ export function createGridTargets(count) {
         object.position.x =
             (
                 x -
-                (GRID_COLUMNS - 1) / 2
+                (
+                    GRID_COLUMNS -
+                    1
+                ) / 2
             ) *
             spacingX;
 
 
         object.position.y =
             (
-                (GRID_ROWS - 1) / 2 -
+                (
+                    GRID_ROWS -
+                    1
+                ) / 2 -
                 y
             ) *
             spacingY;
@@ -359,7 +385,10 @@ export function createGridTargets(count) {
         object.position.z =
             (
                 z -
-                (GRID_DEPTH - 1) / 2
+                (
+                    GRID_DEPTH -
+                    1
+                ) / 2
             ) *
             spacingZ;
 
@@ -371,7 +400,395 @@ export function createGridTargets(count) {
         );
 
 
-        targets.push(object);
+        targets.push(
+            object
+        );
+    }
+
+
+    return targets;
+}
+
+
+/* ========================================
+   PYRAMID / TETRAHEDRON
+   4 TRIANGULAR FACES
+======================================== */
+
+/**
+ * Creates a four-face pyramid
+ * (regular tetrahedron).
+ *
+ * With 200 records,
+ * approximately 50 cards are placed
+ * on every triangular face.
+ *
+ * @param {number} count
+ * @returns {THREE.Object3D[]}
+ */
+export function createPyramidTargets(
+    count
+) {
+
+    const targets =
+        [];
+
+
+    const size =
+        950;
+
+
+    /*
+     * Vertices of a regular
+     * tetrahedron centered near
+     * the world origin.
+     */
+
+    const vertexA =
+        new THREE.Vector3(
+            1,
+            1,
+            1
+        )
+        .normalize()
+        .multiplyScalar(
+            size
+        );
+
+
+    const vertexB =
+        new THREE.Vector3(
+            -1,
+            -1,
+            1
+        )
+        .normalize()
+        .multiplyScalar(
+            size
+        );
+
+
+    const vertexC =
+        new THREE.Vector3(
+            -1,
+            1,
+            -1
+        )
+        .normalize()
+        .multiplyScalar(
+            size
+        );
+
+
+    const vertexD =
+        new THREE.Vector3(
+            1,
+            -1,
+            -1
+        )
+        .normalize()
+        .multiplyScalar(
+            size
+        );
+
+
+    /*
+     * Four triangular faces.
+     */
+
+    const faces = [
+
+        [
+            vertexA,
+            vertexB,
+            vertexC
+        ],
+
+        [
+            vertexA,
+            vertexD,
+            vertexB
+        ],
+
+        [
+            vertexA,
+            vertexC,
+            vertexD
+        ],
+
+        [
+            vertexB,
+            vertexD,
+            vertexC
+        ]
+
+    ];
+
+
+    /*
+     * Tetrahedron center.
+     */
+
+    const center =
+        vertexA
+            .clone()
+            .add(
+                vertexB
+            )
+            .add(
+                vertexC
+            )
+            .add(
+                vertexD
+            )
+            .divideScalar(
+                4
+            );
+
+
+    const recordsPerFace =
+        Math.ceil(
+            count /
+            faces.length
+        );
+
+
+    const goldenRatio =
+        0.618033988749895;
+
+
+    for (
+        let index = 0;
+        index < count;
+        index++
+    ) {
+
+        const object =
+            new THREE.Object3D();
+
+
+        /*
+         * Send records evenly
+         * to 4 different faces.
+         */
+
+        const faceIndex =
+            index %
+            faces.length;
+
+
+        const indexOnFace =
+            Math.floor(
+                index /
+                faces.length
+            );
+
+
+        const face =
+            faces[
+                faceIndex
+            ];
+
+
+        const pointA =
+            face[0];
+
+        const pointB =
+            face[1];
+
+        const pointC =
+            face[2];
+
+
+        /*
+         * Barycentric coordinates.
+         *
+         * These place each card
+         * inside the triangular face.
+         */
+
+        const u =
+            (
+                indexOnFace +
+                0.5
+            ) /
+            recordsPerFace;
+
+
+        const v =
+            (
+                indexOnFace *
+                goldenRatio
+            ) %
+            1;
+
+
+        const sqrtU =
+            Math.sqrt(
+                u
+            );
+
+
+        const weightA =
+            1 -
+            sqrtU;
+
+
+        const weightB =
+            sqrtU *
+            (
+                1 -
+                v
+            );
+
+
+        const weightC =
+            sqrtU *
+            v;
+
+
+        object.position
+            .copy(
+                pointA
+            )
+            .multiplyScalar(
+                weightA
+            );
+
+
+        object.position.add(
+
+            pointB
+                .clone()
+                .multiplyScalar(
+                    weightB
+                )
+        );
+
+
+        object.position.add(
+
+            pointC
+                .clone()
+                .multiplyScalar(
+                    weightC
+                )
+        );
+
+
+        /*
+         * Calculate the face normal.
+         */
+
+        const edgeAB =
+            pointB
+                .clone()
+                .sub(
+                    pointA
+                );
+
+
+        const edgeAC =
+            pointC
+                .clone()
+                .sub(
+                    pointA
+                );
+
+
+        const normal =
+            new THREE.Vector3()
+                .crossVectors(
+                    edgeAB,
+                    edgeAC
+                )
+                .normalize();
+
+
+        /*
+         * Find centre of this face.
+         */
+
+        const faceCenter =
+            pointA
+                .clone()
+                .add(
+                    pointB
+                )
+                .add(
+                    pointC
+                )
+                .divideScalar(
+                    3
+                );
+
+
+        /*
+         * Direction from the middle
+         * of pyramid to the face.
+         */
+
+        const outwardDirection =
+            faceCenter
+                .clone()
+                .sub(
+                    center
+                );
+
+
+        /*
+         * Ensure face normal points
+         * outside the tetrahedron.
+         */
+
+        if (
+            normal.dot(
+                outwardDirection
+            ) <
+            0
+        ) {
+
+            normal.negate();
+        }
+
+
+        /*
+         * Move card slightly away
+         * from face so cards do not
+         * visually enter the pyramid.
+         */
+
+        object.position.add(
+
+            normal
+                .clone()
+                .multiplyScalar(
+                    12
+                )
+        );
+
+
+        /*
+         * Keep cards pointing
+         * outward from the face.
+         */
+
+        const lookTarget =
+            object.position
+                .clone()
+                .add(
+                    normal
+                );
+
+
+        object.lookAt(
+            lookTarget
+        );
+
+
+        targets.push(
+            object
+        );
     }
 
 
@@ -383,28 +800,36 @@ export function createGridTargets(count) {
    CREATE ALL TARGETS
 ======================================== */
 
-/**
- * Creates all four layouts for
- * the supplied number of records.
- *
- * @param {number} count
- * @returns {Object}
- */
-export function createLayoutTargets(count) {
+export function createLayoutTargets(
+    count
+) {
 
     return {
 
         table:
-            createTableTargets(count),
+            createTableTargets(
+                count
+            ),
 
         sphere:
-            createSphereTargets(count),
+            createSphereTargets(
+                count
+            ),
 
         helix:
-            createHelixTargets(count),
+            createHelixTargets(
+                count
+            ),
 
         grid:
-            createGridTargets(count)
+            createGridTargets(
+                count
+            ),
+
+        pyramid:
+            createPyramidTargets(
+                count
+            )
 
     };
 }

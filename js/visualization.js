@@ -1,20 +1,33 @@
-import * as THREE from "three";
+import * as THREE
+from "three";
+
 
 import {
     CSS3DRenderer
-} from "three/addons/renderers/CSS3DRenderer.js";
+}
+from
+"three/addons/renderers/CSS3DRenderer.js";
+
 
 import {
     OrbitControls
-} from "three/addons/controls/OrbitControls.js";
+}
+from
+"three/addons/controls/OrbitControls.js";
+
 
 import {
     createPersonTile
-} from "./tileFactory.js";
+}
+from
+"./tileFactory.js";
+
 
 import {
     createLayoutTargets
-} from "./layouts.js";
+}
+from
+"./layouts.js";
 
 
 let camera;
@@ -22,48 +35,64 @@ let scene;
 let renderer;
 let controls;
 
-let objects = [];
-let targets = {};
 
-let animationFrameId = null;
+let objects =
+    [];
+
+
+let targets =
+    {};
+
+
+let animationFrameId =
+    null;
 
 
 /* ========================================
-   INITIALIZE VISUALIZATION
+   INITIALIZE
 ======================================== */
 
-/**
- * Initializes the Three.js CSS3D scene.
- *
- * @param {Array} people
- */
-export function initVisualization(people) {
+export function initVisualization(
+    people
+) {
 
     cleanupVisualization();
 
+
     createScene();
+
 
     createCamera();
 
+
     createRenderer();
+
 
     createControls();
 
-    createTiles(people);
+
+    createTiles(
+        people
+    );
+
 
     targets =
         createLayoutTargets(
             objects.length
         );
 
+
     bindLayoutButtons();
 
+
     bindResizeHandler();
+
 
     transformTo(
         "table",
         1200
     );
+
 
     animate();
 }
@@ -88,12 +117,17 @@ function createCamera() {
 
     camera =
         new THREE.PerspectiveCamera(
+
             40,
+
             window.innerWidth /
-                window.innerHeight,
+            window.innerHeight,
+
             1,
+
             10000
         );
+
 
     camera.position.z =
         4200;
@@ -109,26 +143,37 @@ function createRenderer() {
     renderer =
         new CSS3DRenderer();
 
+
     renderer.setSize(
         window.innerWidth,
         window.innerHeight
     );
 
-    renderer.domElement.style.position =
+
+    renderer.domElement
+        .style.position =
         "absolute";
 
-    renderer.domElement.style.top =
+
+    renderer.domElement
+        .style.top =
         "0";
 
-    renderer.domElement.style.left =
+
+    renderer.domElement
+        .style.left =
         "0";
+
 
     const container =
         document.getElementById(
             "three-container"
         );
 
-    container.innerHTML = "";
+
+    container.innerHTML =
+        "";
+
 
     container.appendChild(
         renderer.domElement
@@ -148,17 +193,22 @@ function createControls() {
             renderer.domElement
         );
 
+
     controls.enableDamping =
         true;
+
 
     controls.dampingFactor =
         0.08;
 
+
     controls.minDistance =
         800;
 
+
     controls.maxDistance =
         8000;
+
 
     controls.target.set(
         0,
@@ -166,50 +216,59 @@ function createControls() {
         0
     );
 
+
     controls.update();
 }
 
 
 /* ========================================
-   CREATE TILES
+   TILES
 ======================================== */
 
-function createTiles(people) {
+function createTiles(
+    people
+) {
 
-    objects = [];
+    objects =
+        [];
+
 
     people.forEach(
-        (person) => {
+        person => {
 
             const object =
                 createPersonTile(
                     person
                 );
 
+
             /*
-             * Initial random position,
-             * similar to the official
-             * periodic table effect.
+             * Initial random
+             * starting position.
              */
 
             object.position.x =
                 Math.random() *
-                    4000 -
+                4000 -
                 2000;
+
 
             object.position.y =
                 Math.random() *
-                    3000 -
+                3000 -
                 1500;
+
 
             object.position.z =
                 Math.random() *
-                    3000 -
+                3000 -
                 1500;
+
 
             scene.add(
                 object
             );
+
 
             objects.push(
                 object
@@ -230,22 +289,28 @@ function bindLayoutButtons() {
             "[data-layout]"
         );
 
+
     buttons.forEach(
-        (button) => {
+        button => {
 
             button.addEventListener(
                 "click",
                 () => {
 
                     const layoutName =
-                        button.dataset.layout;
+                        button
+                            .dataset
+                            .layout;
+
 
                     transformTo(
                         layoutName,
                         1200
                     );
+
                 }
             );
+
         }
     );
 }
@@ -255,22 +320,20 @@ function bindLayoutButtons() {
    TRANSFORM
 ======================================== */
 
-/**
- * Animates all CSS3D objects
- * to a layout target.
- *
- * @param {string} layoutName
- * @param {number} duration
- */
 export function transformTo(
     layoutName,
     duration = 1200
 ) {
 
     const selectedTargets =
-        targets[layoutName];
+        targets[
+            layoutName
+        ];
 
-    if (!selectedTargets) {
+
+    if (
+        !selectedTargets
+    ) {
 
         console.warn(
             `Unknown layout: ${layoutName}`
@@ -291,7 +354,7 @@ export function transformTo(
 
     const startStates =
         objects.map(
-            (object) => ({
+            object => ({
 
                 position:
                     object.position
@@ -334,6 +397,7 @@ export function transformTo(
                 index
             ) => {
 
+
                 const target =
                     selectedTargets[
                         index
@@ -350,29 +414,40 @@ export function transformTo(
                     !target ||
                     !start
                 ) {
+
                     return;
                 }
 
 
                 object.position
                     .lerpVectors(
+
                         start.position,
+
                         target.position,
+
                         eased
                     );
 
 
                 object.quaternion
                     .slerpQuaternions(
+
                         start.quaternion,
+
                         target.quaternion,
+
                         eased
                     );
+
             }
         );
 
 
-        if (progress < 1) {
+        if (
+            progress <
+            1
+        ) {
 
             requestAnimationFrame(
                 updateTransition
@@ -402,16 +477,20 @@ function setActiveButton(
 
 
     buttons.forEach(
-        (button) => {
+        button => {
 
             const isActive =
-                button.dataset.layout ===
+                button
+                    .dataset
+                    .layout ===
                 layoutName;
+
 
             button.classList.toggle(
                 "active",
                 isActive
             );
+
         }
     );
 }
@@ -423,20 +502,28 @@ function setActiveButton(
 
 function easeInOutCubic(t) {
 
-    if (t < 0.5) {
+    if (
+        t <
+        0.5
+    ) {
 
-        return 4 *
+        return (
+            4 *
             t *
             t *
-            t;
+            t
+        );
     }
 
 
-    return 1 -
+    return (
+        1 -
         Math.pow(
             -2 * t + 2,
             3
-        ) / 2;
+        ) /
+        2
+    );
 }
 
 
@@ -459,6 +546,7 @@ function onWindowResize() {
         !camera ||
         !renderer
     ) {
+
         return;
     }
 
@@ -491,7 +579,9 @@ function animate() {
         );
 
 
-    if (controls) {
+    if (
+        controls
+    ) {
 
         controls.update();
     }
@@ -518,12 +608,14 @@ function animate() {
 function cleanupVisualization() {
 
     if (
-        animationFrameId !== null
+        animationFrameId !==
+        null
     ) {
 
         cancelAnimationFrame(
             animationFrameId
         );
+
 
         animationFrameId =
             null;
@@ -536,19 +628,34 @@ function cleanupVisualization() {
     );
 
 
-    if (controls) {
+    if (
+        controls
+    ) {
 
         controls.dispose();
 
-        controls = null;
+
+        controls =
+            null;
     }
 
 
-    objects = [];
+    objects =
+        [];
 
-    targets = {};
 
-    scene = null;
-    camera = null;
-    renderer = null;
+    targets =
+        {};
+
+
+    scene =
+        null;
+
+
+    camera =
+        null;
+
+
+    renderer =
+        null;
 }

@@ -13,7 +13,8 @@ let loginSuccessHandler = null;
  */
 export function initAuth(onSuccess) {
 
-    loginSuccessHandler = onSuccess;
+    loginSuccessHandler =
+        onSuccess;
 
 
     /*
@@ -21,7 +22,7 @@ export function initAuth(onSuccess) {
      * this function by name from HTML.
      *
      * Because this file is an ES module,
-     * we expose it through window.
+     * expose it through window.
      */
 
     window.handleCredentialResponse =
@@ -39,7 +40,9 @@ export function initAuth(onSuccess) {
  *
  * @param {Object} response
  */
-function handleCredentialResponse(response) {
+function handleCredentialResponse(
+    response
+) {
 
     if (
         !response ||

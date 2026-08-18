@@ -4,30 +4,52 @@ const SHEET_URL =
 
 /**
  * Fetches the published Google Sheet
- * and converts the CSV into JavaScript objects.
+ * and converts the CSV into
+ * JavaScript objects.
  *
  * @returns {Promise<Array>}
  */
 export async function fetchPeopleData() {
 
-    const response = await fetch(SHEET_URL);
+    const response =
+        await fetch(
+            SHEET_URL
+        );
+
 
     if (!response.ok) {
+
         throw new Error(
             `Failed to fetch Google Sheet: ${response.status}`
         );
     }
 
-    const csvText = await response.text();
 
-    const result = Papa.parse(csvText, {
-        header: true,
-        skipEmptyLines: true,
-        transformHeader: (header) => header.trim()
-    });
+    const csvText =
+        await response.text();
 
 
-    if (result.errors.length > 0) {
+    const result =
+        Papa.parse(
+            csvText,
+            {
+                header: true,
+
+                skipEmptyLines:
+                    true,
+
+                transformHeader:
+                    (header) =>
+                        header.trim()
+            }
+        );
+
+
+    if (
+        result.errors.length >
+        0
+    ) {
+
         console.warn(
             "CSV parsing warnings:",
             result.errors
@@ -35,15 +57,24 @@ export async function fetchPeopleData() {
     }
 
 
-    const people = result.data
-        .filter(isValidPerson)
-        .slice(0, 200)
-        .map(normalizePerson);
+    const people =
+        result.data
+            .filter(
+                isValidPerson
+            )
+            .slice(
+                0,
+                200
+            )
+            .map(
+                normalizePerson
+            );
 
 
     console.log(
         `Loaded ${people.length} records from Google Sheet.`
     );
+
 
     return people;
 }
@@ -67,8 +98,8 @@ function isValidPerson(person) {
 
 
 /**
- * Converts CSV strings into a consistent
- * data structure for the visualization.
+ * Converts CSV strings into
+ * a consistent data structure.
  *
  * @param {Object} person
  * @returns {Object}
@@ -76,19 +107,38 @@ function isValidPerson(person) {
 function normalizePerson(person) {
 
     return {
-        name: cleanText(person.Name),
 
-        photo: cleanText(person.Photo),
+        name:
+            cleanText(
+                person.Name
+            ),
 
-        age: cleanText(person.Age),
+        photo:
+            cleanText(
+                person.Photo
+            ),
 
-        country: cleanText(person.Country),
+        age:
+            cleanText(
+                person.Age
+            ),
 
-        interest: cleanText(person.Interest),
+        country:
+            cleanText(
+                person.Country
+            ),
 
-        netWorth: cleanText(
-            person["Net Worth"]
-        )
+        interest:
+            cleanText(
+                person.Interest
+            ),
+
+        netWorth:
+            cleanText(
+                person[
+                    "Net Worth"
+                ]
+            )
     };
 }
 
@@ -102,9 +152,16 @@ function normalizePerson(person) {
  */
 function cleanText(value) {
 
-    if (value === null || value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
         return "";
     }
 
-    return String(value).trim();
+
+    return String(
+        value
+    ).trim();
 }
