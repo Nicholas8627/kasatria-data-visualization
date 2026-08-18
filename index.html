@@ -17,11 +17,13 @@
 
     <title>3D Data Visualization</title>
 
+
     <!-- Favicon -->
     <link
         rel="icon"
         href="./assets/favicon.ico"
     >
+
 
     <!-- Styles -->
     <link
@@ -85,43 +87,23 @@
                 Welcome Back
             </h1>
 
+
             <p>
                 Sign in to continue to the
                 3D Data Visualization
             </p>
 
 
-            <!-- Google Identity configuration -->
-
-            <div
-                id="g_id_onload"
-
-                data-client_id="761390105894-3jdklcrgf192sccqk77vtmci68964t6o.apps.googleusercontent.com"
-
-                data-callback="handleCredentialResponse"
-
-                data-auto_prompt="false">
-            </div>
-
-
-            <!-- Google Sign-In button -->
+            <!--
+                Google Sign-In button
+                will be generated here
+                by auth.js
+            -->
 
             <div class="google-button">
 
                 <div
-                    class="g_id_signin"
-
-                    data-type="standard"
-
-                    data-size="large"
-
-                    data-theme="outline"
-
-                    data-text="sign_in_with"
-
-                    data-shape="rectangular"
-
-                    data-logo_alignment="left">
+                    id="google-signin-button">
                 </div>
 
             </div>
@@ -142,7 +124,7 @@
     >
 
 
-        <!-- Three.js output -->
+        <!-- Three.js Output -->
 
         <div
             id="three-container"
@@ -159,6 +141,7 @@
                 3D Data Visualization
             </h1>
 
+
             <p id="record-count">
                 Google Sheet Data
             </p>
@@ -167,62 +150,83 @@
 
 
 
-        <!-- Layout controls -->
+        <!-- =================================
+             LAYOUT CONTROLS
+        ================================== -->
 
         <nav
             class="layout-controls"
             aria-label="Visualization layouts"
         >
 
+
             <button
                 class="layout-button"
                 data-layout="table"
                 type="button">
+
                 TABLE
+
             </button>
+
 
 
             <button
                 class="layout-button"
                 data-layout="sphere"
                 type="button">
+
                 SPHERE
+
             </button>
+
 
 
             <button
                 class="layout-button"
                 data-layout="helix"
                 type="button">
+
                 HELIX
+
             </button>
+
 
 
             <button
                 class="layout-button"
                 data-layout="grid"
                 type="button">
+
                 GRID
+
             </button>
+
 
 
             <button
                 class="layout-button"
                 data-layout="pyramid"
                 type="button">
+
                 PYRAMID
+
             </button>
+
 
         </nav>
 
 
 
-        <!-- Net Worth Legend -->
+        <!-- =================================
+             NET WORTH LEGEND
+        ================================== -->
 
         <aside
             class="net-worth-legend"
             aria-label="Net worth colour legend"
         >
+
 
             <div class="legend-item">
 
@@ -235,6 +239,7 @@
                 </span>
 
             </div>
+
 
 
             <div class="legend-item">
@@ -250,6 +255,7 @@
             </div>
 
 
+
             <div class="legend-item">
 
                 <span
@@ -261,6 +267,7 @@
                 </span>
 
             </div>
+
 
         </aside>
 
@@ -281,6 +288,7 @@
     >
 
         <div class="loading-spinner"></div>
+
 
         <p>
             Loading Google Sheet data...
