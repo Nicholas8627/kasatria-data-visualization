@@ -4,11 +4,13 @@
 
 .login-screen {
     position: fixed;
+
     inset: 0;
 
     z-index: 50;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -30,9 +32,14 @@
 ======================================== */
 
 .login-box {
-    width: min(420px, calc(100% - 40px));
+    width:
+        min(
+            420px,
+            calc(100% - 40px)
+        );
 
-    padding: 48px 42px;
+    padding:
+        48px 42px;
 
     text-align: center;
 
@@ -59,7 +66,8 @@
 ======================================== */
 
 .login-box h1 {
-    margin: 0 0 12px;
+    margin:
+        0 0 12px;
 
     color:
         var(--text-primary);
@@ -67,7 +75,8 @@
     font-size: 32px;
     font-weight: 700;
 
-    letter-spacing: -0.5px;
+    letter-spacing:
+        -0.5px;
 }
 
 
@@ -76,7 +85,8 @@
 ======================================== */
 
 .login-box p {
-    margin: 0 0 30px;
+    margin:
+        0 0 30px;
 
     color:
         var(--text-secondary);
@@ -93,6 +103,7 @@
 
 .google-button {
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -114,11 +125,14 @@
             38px 24px;
     }
 
+
     .login-box h1 {
         font-size: 27px;
     }
 
+
     .login-box p {
         font-size: 13px;
     }
+
 }

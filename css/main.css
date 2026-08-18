@@ -24,11 +24,13 @@
         0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
+
 
 html,
 body {
@@ -38,6 +40,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 
 body {
     overflow: hidden;
@@ -55,6 +58,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+
 button,
 input,
 select,
@@ -62,11 +66,13 @@ textarea {
     font: inherit;
 }
 
+
 button {
     border: 0;
 
     color: inherit;
 }
+
 
 img {
     display: block;
@@ -74,9 +80,11 @@ img {
     max-width: 100%;
 }
 
+
 .hidden {
     display: none !important;
 }
+
 
 ::selection {
     background:
