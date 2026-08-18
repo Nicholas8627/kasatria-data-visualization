@@ -1,0 +1,684 @@
+/* ========================================
+   VISUALIZATION SCREEN
+======================================== */
+
+#visualization-screen {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   THREE.JS CONTAINER
+======================================== */
+
+#three-container {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.visualization-header {
+    position: absolute;
+
+    top: 20px;
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 10;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+
+.visualization-header h1 {
+    margin: 0;
+
+    color:
+        var(--text-primary);
+
+    font-size:
+        clamp(
+            22px,
+            2vw,
+            32px
+        );
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    text-shadow:
+        0 2px 12px
+        rgba(0, 0, 0, 0.8);
+}
+
+
+.visualization-header p {
+    margin:
+        7px 0 0;
+
+    color:
+        var(--text-secondary);
+
+    font-size: 13px;
+    font-weight: 400;
+}
+
+
+/* ========================================
+   PERSON TILE
+======================================== */
+
+.person-tile {
+    width: 120px;
+    height: 160px;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding: 8px;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.28);
+
+    border-radius: 6px;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.35);
+
+    cursor: default;
+
+    transition:
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+.person-tile:hover {
+    filter:
+        brightness(1.15);
+
+    box-shadow:
+        0 8px 24px
+        rgba(0, 0, 0, 0.55);
+}
+
+
+/* ========================================
+   NET WORTH COLORS
+======================================== */
+
+.net-worth-low {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(211, 47, 47, 0.96),
+            rgba(145, 22, 22, 0.96)
+        );
+}
+
+
+.net-worth-medium {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(239, 137, 25, 0.97),
+            rgba(183, 91, 7, 0.97)
+        );
+}
+
+
+.net-worth-high {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(32, 157, 79, 0.97),
+            rgba(17, 105, 52, 0.97)
+        );
+}
+
+
+/* ========================================
+   TILE META
+======================================== */
+
+.tile-meta {
+    width: 100%;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        5px;
+
+    font-size:
+        8px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    opacity:
+        0.92;
+}
+
+
+.tile-country,
+.tile-age {
+    white-space:
+        nowrap;
+}
+
+
+/* ========================================
+   PHOTO
+======================================== */
+
+.tile-photo-wrapper {
+    width: 66px;
+    height: 70px;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    margin-bottom: 6px;
+
+    border-radius: 3px;
+
+    background:
+        rgba(0, 0, 0, 0.25);
+}
+
+
+.tile-photo {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.tile-photo-placeholder {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color:
+        rgba(255, 255, 255, 0.9);
+
+    background:
+        rgba(0, 0, 0, 0.28);
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   TILE TEXT
+======================================== */
+
+.tile-name {
+    width: 100%;
+
+    overflow: hidden;
+
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    text-overflow:
+        ellipsis;
+}
+
+
+.tile-interest {
+    width: 100%;
+
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.86
+        );
+
+    font-size: 7px;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    text-overflow:
+        ellipsis;
+}
+
+
+.tile-worth {
+    width: 100%;
+
+    margin-top: auto;
+
+    padding-top: 4px;
+
+    color: #ffffff;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   LAYOUT CONTROLS
+======================================== */
+
+.layout-controls {
+    position: absolute;
+
+    left: 50%;
+    bottom: 24px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    border-radius: 10px;
+
+    background:
+        rgba(
+            5,
+            12,
+            16,
+            0.68
+        );
+
+    box-shadow:
+        var(--shadow-soft);
+
+    backdrop-filter:
+        blur(10px);
+}
+
+
+.layout-button {
+    min-width: 76px;
+
+    padding:
+        9px 15px;
+
+    border:
+        1px solid
+        rgba(
+            47,
+            168,
+            216,
+            0.72
+        );
+
+    border-radius: 5px;
+
+    background:
+        rgba(
+            4,
+            20,
+            27,
+            0.88
+        );
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.92
+        );
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing:
+        0.25px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.layout-button:hover {
+    border-color:
+        var(--accent-hover);
+
+    background:
+        rgba(
+            20,
+            93,
+            119,
+            0.85
+        );
+
+    transform:
+        translateY(-2px);
+}
+
+
+.layout-button.active {
+    border-color:
+        var(--accent-hover);
+
+    background:
+        var(--accent);
+
+    color:
+        #ffffff;
+
+    box-shadow:
+        0 0 15px
+        rgba(
+            47,
+            168,
+            216,
+            0.28
+        );
+}
+
+
+/* ========================================
+   LEGEND
+======================================== */
+
+.net-worth-legend {
+    position: absolute;
+
+    right: 22px;
+    bottom: 24px;
+
+    z-index: 20;
+
+    min-width:
+        185px;
+
+    padding:
+        12px 14px;
+
+    border:
+        1px solid
+        var(--border-soft);
+
+    border-radius:
+        8px;
+
+    background:
+        rgba(
+            4,
+            10,
+            13,
+            0.75
+        );
+
+    box-shadow:
+        var(--shadow-soft);
+
+    backdrop-filter:
+        blur(10px);
+}
+
+
+.legend-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.9
+        );
+
+    font-size:
+        10px;
+}
+
+
+.legend-item + .legend-item {
+    margin-top:
+        7px;
+}
+
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+
+    flex-shrink: 0;
+
+    border-radius:
+        2px;
+}
+
+
+.legend-color.low {
+    background:
+        #d32f2f;
+}
+
+
+.legend-color.medium {
+    background:
+        #ef8919;
+}
+
+
+.legend-color.high {
+    background:
+        #209d4f;
+}
+
+
+/* ========================================
+   LOADING INDICATOR
+======================================== */
+
+#loading-indicator {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            0.88
+        );
+
+    color:
+        #ffffff;
+}
+
+
+.loading-spinner {
+    width: 38px;
+    height: 38px;
+
+    margin-bottom:
+        14px;
+
+    border:
+        3px solid
+        rgba(
+            255,
+            255,
+            255,
+            0.18
+        );
+
+    border-top-color:
+        var(--accent);
+
+    border-radius:
+        50%;
+
+    animation:
+        loading-spin
+        0.8s
+        linear
+        infinite;
+}
+
+
+#loading-indicator p {
+    margin: 0;
+
+    color:
+        var(--text-secondary);
+
+    font-size:
+        13px;
+}
+
+
+@keyframes loading-spin {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 800px) {
+
+    .visualization-header {
+        top: 14px;
+    }
+
+
+    .layout-controls {
+        bottom: 16px;
+
+        gap: 5px;
+
+        padding: 5px;
+    }
+
+
+    .layout-button {
+        min-width: auto;
+
+        padding:
+            8px 10px;
+
+        font-size: 9px;
+    }
+
+
+    .net-worth-legend {
+        right: 10px;
+
+        bottom: 75px;
+
+        min-width:
+            155px;
+
+        padding:
+            9px 10px;
+    }
+
+
+    .legend-item {
+        font-size: 8px;
+    }
+
+}
